@@ -1,0 +1,155 @@
+Microsoft (R) Macro Assembler (x64) Version 14.33.31630.0   10/02/22 22:55:05
+SE_Asm03.asm						     Page 1 - 1
+
+
+				﻿.586P
+SE_Asm03.asm(1) : error A2044:invalid character in file
+				.MODEL FLAT, STDCALL
+SE_Asm03.asm(2) : error A2008:syntax error : .
+				includelib kernel32.lib
+
+				ExitProcess PROTO :DWORD
+				MessageBoxA PROTO : DWORD, : DWORD, : DWORD, : DWORD
+
+				.STACK 4096
+SE_Asm03.asm(8) : error A2008:syntax error : .
+
+ 00000000			.CONST
+
+ 00000000			.DATA
+ 00000000 10 20 30 40			myBytes BYTE 10h, 20h, 30h, 40h					
+ 00000004 008A 003B 0044		myWords WORD 8Ah, 3Bh, 44h, 5Fh, 99h			
+	   005F 0099
+ 0000000E 00000001			myDoubles DWORD 1, 2, 3, 4, 5, 6				
+	   00000002
+	   00000003
+	   00000004
+	   00000005
+	   00000006
+ 00000026 0000000E R			myPointer DWORD myDoubles						
+
+ 0000002A 00000001			massive DWORD 1, 2, 3, 4, 5, 6, 7				
+	   00000002
+	   00000003
+	   00000004
+	   00000005
+	   00000006
+	   00000007
+ 00000046 00000000			sumOfElements DWORD 0							
+					
+ 0000004A D0 93 D1 83 D1		STR1 DB "Гурина К.С. 2-4", 0			
+	   80 D0 B8 D0 BD
+	   D0 B0 20 D0 9A
+	   2E D0 A1 2E 20
+	   32 2D 34 00
+ 00000062 D0 95 D1 81 D1		STR2 DB "Есть нулевой элемент", 0 
+	   82 D1 8C 20 D0
+	   BD D1 83 D0 BB
+	   D0 B5 D0 B2 D0
+	   BE D0 B9 20 D1
+	   8D D0 BB D0 B5
+	   D0 BC D0 B5 D0
+	   BD D1 82 00
+ 00000089 D0 9D D1 83 D0		STR3 DB "Нулевого элемента не найдено", 0 
+	   BB D0 B5 D0 B2
+	   D0 BE D0 B3 D0
+	   BE 20 D1 8D D0
+	   BB D0 B5 D0 BC
+	   D0 B5 D0 BD D1
+	   82 D0 B0 20 D0
+	   BD D0 B5 20 D0
+	   BD D0 B0 D0 B9
+	   D0 B4 D0 B5 D0
+	   BD D0 BE 00
+
+ 00000000			.CODE
+
+ 00000000			main PROC
+ 00000000			start: 
+ 00000000  BE 00000000			mov ESI, 0
+				    mov EAX, myDoubles[ESI]
+SE_Asm03.asm(30) : error A2229:cannot use labels and 32-bit addressing in the same expression
+ 00000005  8B 96 0000000E R	    mov EDX, [myDoubles+ESI]								
+
+					
+ 0000000B  BE 0000002A R		mov ESI, OFFSET massive
+ 00000010  B9 00000007			mov ECX, lengthof massive						; сугубо счётчик
+ 00000015  BB 00000001			mov EBX, 1
+ 00000025			CYCLE:
+ 00000025  67& 8B 06			mov EAX, [ESI]									; EAX = massive[ESI], ESI = massive[0]
+ 00000028  01 05 00000046 R		add sumOfElements, EAX							; sumOfElements = sumOfElements + EAX, добавляем то, что в EAX
+ 0000002E  83 C6 04			add ESI, type massive							; +4 байта
+ 00000031  83 F8 00			cmp EAX, 0										; само сравнение
+ 00000034  74 04			jz ZERO
+ 00000036  E2 ED			loop CYCLE										; --ECX, if (ECX != 0) goto CYCLE
+ 00000038  EB 07			jmp ALLOK
+
+ 0000003A			ZERO:
+ 0000003A  BB 00000000			mov EBX, 0	
+ 0000003F  74 08			jz ZD1
+
+ 00000041			ALLOK:
+ 00000041  8B 05 00000046 R		mov eax, sumOfElements	
+ 00000047  75 00			jnz ZD2
+
+
+ 00000049			ZD1:
+					INVOKE MessageBoxA, 0, OFFSET Str2, OFFSET Str1, 1
+SE_Asm03.asm(56) : error A2008:syntax error : MessageBoxA
+					
+
+ 00000049			ZD2:
+					INVOKE MessageBoxA, 0, OFFSET Str3, OFFSET Str1, 1
+SE_Asm03.asm(60) : error A2008:syntax error : MessageBoxA
+					
+					
+ 00000049  6A FF		push -1
+ 0000004B  E8 00000000 E	call ExitProcess
+
+ 00000050			main ENDP
+
+				end main
+Microsoft (R) Macro Assembler (x64) Version 14.33.31630.0   10/02/22 22:55:05
+SE_Asm03.asm						     Symbols 2 - 1
+
+
+
+
+Segments:
+
+                N a m e                  Length   Align   Class
+
+CONST  . . . . . . . . . . . . .	 00000000 16	  'CONST'	 ReadOnly
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P 	 00000000 Length= 00000000 External
+MessageBoxA  . . . . . . . . . .	P 	 00000000 Length= 00000000 External
+main . . . . . . . . . . . . . .	P 	 00000000 _TEXT	Length= 00000050 Public
+  start  . . . . . . . . . . . .	L 	 00000000 _TEXT	
+  CYCLE  . . . . . . . . . . . .	L 	 00000025 _TEXT	
+  ZERO . . . . . . . . . . . . .	L 	 0000003A _TEXT	
+  ALLOK  . . . . . . . . . . . .	L 	 00000041 _TEXT	
+  ZD1  . . . . . . . . . . . . .	L 	 00000049 _TEXT	
+  ZD2  . . . . . . . . . . . . .	L 	 00000049 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+STR1 . . . . . . . . . . . . . .	Byte	 0000004A _DATA	
+STR2 . . . . . . . . . . . . . .	Byte	 00000062 _DATA	
+STR3 . . . . . . . . . . . . . .	Byte	 00000089 _DATA	
+massive  . . . . . . . . . . . .	DWord	 0000002A _DATA	
+myBytes  . . . . . . . . . . . .	Byte	 00000000 _DATA	
+myDoubles  . . . . . . . . . . .	DWord	 0000000E _DATA	
+myPointer  . . . . . . . . . . .	DWord	 00000026 _DATA	
+myWords  . . . . . . . . . . . .	Word	 00000004 _DATA	
+sumOfElements  . . . . . . . . .	DWord	 00000046 _DATA	
+
+	   0 Warnings
+	   8 Errors

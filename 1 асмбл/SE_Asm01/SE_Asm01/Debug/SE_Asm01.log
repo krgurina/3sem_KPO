@@ -1,0 +1,29 @@
+﻿Сборка начата 10.12.2022 16:44:07.
+Уровень детализации журнала: Normal.     1>Проект "F:\лабы\КПО\1 асмбл\SE_Asm01\SE_Asm01\SE_Asm01.vcxproj" в узле 2 (целевые объекты Build).
+     1>InitializeBuildStatus:
+         Обращение к "Debug\SE_Asm01.tlog\unsuccessfulbuild".
+       _MASM:
+         Assembling SE_asm.asm...
+         cmd.exe /C "C:\Users\XE\AppData\Local\Temp\tmpe7cadab9df3542ea82cc87c48d76beff.cmd"
+         ml.exe /c /nologo /Zi /Fo"Debug\SE_asm.obj" /Fl"Debug\\" /W3 /errorReport:prompt  /TaSE_asm.asm
+     1>SE_asm.asm(121): error A2008: syntax error : twirl_end0
+     1>SE_asm.asm(64): warning A6004: procedure argument or local not referenced : bnct
+     1>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: выход из команды "ml.exe /c /nologo /Zi /Fo"Debug\SE_asm.obj" /Fl"Debug\\" /W3 /errorReport:prompt  /TaSE_asm.asm" с кодом "1".
+     1>Сборка проекта "F:\лабы\КПО\1 асмбл\SE_Asm01\SE_Asm01\SE_Asm01.vcxproj" завершена (целевые объекты Build) с ошибкой.
+
+Ошибка сборки.
+
+       "F:\лабы\КПО\1 асмбл\SE_Asm01\SE_Asm01\SE_Asm01.vcxproj" (целевой объект Build ) (1) ->
+       (Целевой объект _MASM) -> 
+         SE_asm.asm(64): warning A6004: procedure argument or local not referenced : bnct
+
+
+       "F:\лабы\КПО\1 асмбл\SE_Asm01\SE_Asm01\SE_Asm01.vcxproj" (целевой объект Build ) (1) ->
+       (Целевой объект _MASM) -> 
+         SE_asm.asm(121): error A2008: syntax error : twirl_end0
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: выход из команды "ml.exe /c /nologo /Zi /Fo"Debug\SE_asm.obj" /Fl"Debug\\" /W3 /errorReport:prompt  /TaSE_asm.asm" с кодом "1".
+
+    Предупреждений: 1
+    Ошибок: 2
+
+Прошло времени 00:00:00.10

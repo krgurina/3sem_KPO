@@ -1,0 +1,229 @@
+Microsoft (R) Macro Assembler Version 14.29.30146.0	    12/10/22 16:44:07
+SE_asm.asm						     Page 1 - 1
+
+
+				.586
+				.model flat, stdcall
+				includelib libucrt.lib
+				includelib libucrt.lib
+				includelib ../Debug/GKS-2022StaticLib
+				includelib kernel32.lib
+				ExitProcess PROTO :DWORD
+				.stack 4096
+
+				printi PROTO : DWORD
+				prints PROTO : DWORD
+				octat PROTO : DWORD, : DWORD
+				elevate PROTO : DWORD, : DWORD
+				newline PROTO
+
+ 00000000			.const
+ 00000000 00000008				lit0 sdword 	8
+ 00000004 00000003				lit1 sdword 	3
+ 00000008 00000001				lit2 sdword 	1
+ 0000000C 00000005				lit3 sdword 	5
+ 00000010 00000002				lit4 sdword 	2
+ 00000014 31 32 33 34 35			lit5 byte 	'1234567890', 0
+	   36 37 38 39 30
+	   00
+ 0000001F 63 6F 6D 70 6C			lit6 byte 	'complete', 0
+	   65 74 65 00
+ 00000028 0000000A				lit7 sdword 	10
+ 0000002C 00000014				lit8 sdword 	20
+ 00000030 00000000				lit9 sdword 	0
+
+
+ 00000000			.data
+ 00000000 00000000				zfunctio 	sdword 	0
+ 00000004 00000000				cnnct 	dword 	?
+ 00000008 00000000				xmain 	sdword 	0
+ 0000000C 00000000				ymain 	sdword 	0
+ 00000010 00000000				zmain 	sdword 	0
+ 00000014 00000000				gmain 	sdword 	0
+ 00000018 00000000				samain 	dword 	?
+ 0000001C 00000000				sbmain 	dword 	?
+ 00000020 00000000				scmain 	dword 	?
+ 00000024 00000000				abmain 	sdword 	0
+ 00000028 00000000				vvmain 	sdword 	0
+
+ 00000000			.code
+ 00000000			functio0 PROC yfunctio:DWORD, xfunctio:DWORD
+ 00000003  FF 75 0C			push xfunctio
+ 00000006  FF 75 08			push yfunctio
+ 00000009  58				pop eax
+ 0000000A  5B				pop ebx
+ 0000000B  03 C3			add eax, ebx
+ 0000000D  50				push eax
+ 0000000E  5B				pop ebx
+ 0000000F  89 1D 00000000 R		mov zfunctio, ebx
+
+ 00000015  A1 00000000 R		mov eax, zfunctio
+					ret
+ 0000001E			functio0 ENDP
+
+ 0000001E			nct1 PROC bnct:DWORD, anct:DWORD
+ 00000021  FF 75 0C			push anct
+ 00000024  5B				pop ebx
+ 00000025  89 1D 00000004 R		mov cnnct, ebx
+
+ 0000002B  A1 00000004 R		mov eax,  cnnct
+					ret
+ 00000034			nct1 ENDP
+SE_asm.asm(64) : warning A6004:procedure argument or local not referenced : bnct
+
+ 00000034			main PROC
+ 00000034  FF 35 00000000 R		push lit0
+ 0000003A  FF 35 00000004 R		push lit1
+ 00000040  E8 00000000 E		call octat
+ 00000045  50				push eax
+ 00000046  5B				pop ebx
+ 00000047  89 1D 00000014 R		mov gmain, ebx
+
+ 0000004D  FF 35 00000008 R		push lit2
+ 00000053  5B				pop ebx
+ 00000054  89 1D 00000008 R		mov xmain, ebx
+
+ 0000005A  FF 35 0000000C R		push lit3
+ 00000060  FF 35 00000010 R		push lit4
+ 00000066  E8 00000000 E		call elevate
+ 0000006B  50				push eax
+ 0000006C  5B				pop ebx
+ 0000006D  89 1D 0000000C R		mov ymain, ebx
+
+ 00000073  68 00000014 R		push offset lit5
+ 00000078  5B				pop ebx
+ 00000079  89 1D 00000018 R		mov samain, ebx
+
+ 0000007F  68 00000014 R		push offset lit5
+ 00000084  5B				pop ebx
+ 00000085  89 1D 0000001C R		mov sbmain, ebx
+
+ 0000008B  FF 35 00000008 R		push xmain
+ 00000091  FF 35 0000000C R		push ymain
+ 00000097  E8 FFFFFF64			call functio0
+ 0000009C  50				push eax
+ 0000009D  5B				pop ebx
+ 0000009E  89 1D 00000010 R		mov zmain, ebx
+
+ 000000A4  FF 35 00000018 R		push samain
+ 000000AA  FF 35 0000001C R		push sbmain
+ 000000B0  E8 FFFFFF69			call nct1
+ 000000B5  50				push eax
+ 000000B6  5B				pop ebx
+ 000000B7  89 1D 00000020 R		mov scmain, ebx
+
+ 000000BD  68 0000001F R		push offset lit6
+ 000000C2  E8 00000000 E		call prints
+ 000000C7  FF 35 00000028 R		push lit7
+ 000000CD  5B				pop ebx
+ 000000CE  89 1D 00000024 R		mov abmain, ebx
+
+ 000000D4  FF 35 0000002C R		push lit8
+ 000000DA  5B				pop ebx
+ 000000DB  89 1D 00000028 R		mov vvmain, ebx
+
+ 000000E1			twirl_start0:
+ 000000E1  A1 00000024 R		mov eax, abmain
+ 000000E6  8B 1D 00000028 R		mov ebx, vvmain
+ 000000EC  3B C3			cmp eax, ebx
+					 twirl_end0
+SE_asm.asm(121) : error A2008:syntax error : twirl_end0
+ 000000EE  E8 00000000 E		call newline
+ 000000F3  FF 35 00000024 R		push abmain
+ 000000F9  FF 35 00000010 R		push lit4
+ 000000FF  58				pop eax
+ 00000100  5B				pop ebx
+ 00000101  03 C3			add eax, ebx
+ 00000103  50				push eax
+ 00000104  5B				pop ebx
+ 00000105  89 1D 00000024 R		mov abmain, ebx
+
+ 0000010B  FF 35 00000024 R		push abmain
+ 00000111  E8 00000000 E		call printi
+ 00000116  EB C9			jmp twirl_start0
+ 00000118			twirl_end0:
+ 00000118  E8 00000000 E		call newline
+ 0000011D  FF 35 00000010 R		push zmain
+ 00000123  E8 00000000 E		call printi
+ 00000128  E8 00000000 E		call newline
+ 0000012D  FF 35 00000020 R		push scmain
+ 00000133  E8 00000000 E		call prints
+ 00000138  6A 00			push 0
+ 0000013A  E8 00000000 E		call ExitProcess
+ 0000013F			main ENDP
+				end main
+Microsoft (R) Macro Assembler Version 14.29.30146.0	    12/10/22 16:44:07
+SE_asm.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CONST  . . . . . . . . . . . . .	32 Bit	 00000034 Para	  Public  'CONST'	 ReadOnly
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000002C Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000013F Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+elevate  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+functio0 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001E Public STDCALL
+  yfunctio . . . . . . . . . . .	DWord	 bp + 00000008
+  xfunctio . . . . . . . . . . .	DWord	 bp + 0000000C
+main . . . . . . . . . . . . . .	P Near	 00000034 _TEXT	Length= 0000010B Public STDCALL
+  twirl_start0 . . . . . . . . .	L Near	 000000E1 _TEXT	
+  twirl_end0 . . . . . . . . . .	L Near	 00000118 _TEXT	
+nct1 . . . . . . . . . . . . . .	P Near	 0000001E _TEXT	Length= 00000016 Public STDCALL
+  bnct . . . . . . . . . . . . .	DWord	 bp + 00000008
+  anct . . . . . . . . . . . . .	DWord	 bp + 0000000C
+newline  . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+octat  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+printi . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+prints . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+abmain . . . . . . . . . . . . .	DWord	 00000024 _DATA	
+cnnct  . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+gmain  . . . . . . . . . . . . .	DWord	 00000014 _DATA	
+lit0 . . . . . . . . . . . . . .	DWord	 00000000 CONST	
+lit1 . . . . . . . . . . . . . .	DWord	 00000004 CONST	
+lit2 . . . . . . . . . . . . . .	DWord	 00000008 CONST	
+lit3 . . . . . . . . . . . . . .	DWord	 0000000C CONST	
+lit4 . . . . . . . . . . . . . .	DWord	 00000010 CONST	
+lit5 . . . . . . . . . . . . . .	Byte	 00000014 CONST	
+lit6 . . . . . . . . . . . . . .	Byte	 0000001F CONST	
+lit7 . . . . . . . . . . . . . .	DWord	 00000028 CONST	
+lit8 . . . . . . . . . . . . . .	DWord	 0000002C CONST	
+lit9 . . . . . . . . . . . . . .	DWord	 00000030 CONST	
+samain . . . . . . . . . . . . .	DWord	 00000018 _DATA	
+sbmain . . . . . . . . . . . . .	DWord	 0000001C _DATA	
+scmain . . . . . . . . . . . . .	DWord	 00000020 _DATA	
+vvmain . . . . . . . . . . . . .	DWord	 00000028 _DATA	
+xmain  . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+ymain  . . . . . . . . . . . . .	DWord	 0000000C _DATA	
+zfunctio . . . . . . . . . . . .	DWord	 00000000 _DATA	
+zmain  . . . . . . . . . . . . .	DWord	 00000010 _DATA	
+
+	   1 Warnings
+	   1 Errors
